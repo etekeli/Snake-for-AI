@@ -4,7 +4,7 @@ from Player import *
 from GameElements import *
 
 clock = pygame.time.Clock()
-FPS = 10
+FPS = 15
 
 # App : Main class
 # Creates the main menu 
@@ -52,7 +52,6 @@ class App():
 		for event in events:
 			if event.type == pygame.QUIT:
 				exit()
-
 
 		
 # Game : Snake game

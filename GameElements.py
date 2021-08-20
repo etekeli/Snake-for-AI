@@ -107,4 +107,22 @@ class Apple():
 		pygame.draw.rect(surface, self.color2, r, 9)
 
 	def randomize_position(self, snake):
-		self.position = (random.randint(0, self.grid.size-1), random.randint(0, self.grid.size-1))
+		x = random.randint(0, self.grid.size-1)
+		y = random.randint(0, self.grid.size-1)
+		found = False
+		i = 0
+		while not found and i < self.grid.size:
+			x = (x + 1) % self.grid.size
+			j = 0
+			while not found and j < self.grid.size:
+				y = (y + 1) % self.grid.size
+				if not ((x, y) in snake.body):
+					found = True
+					self.position = (x, y)
+				j += 1
+			i += 1
+
+
+
+		if not found:
+			print("Can't place the apple anywhere, game over! \n")
