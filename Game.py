@@ -4,7 +4,7 @@ from Player import *
 from GameElements import *
 
 clock = pygame.time.Clock()
-FPS = 15
+FPS = 60
 
 # App : Main class
 # Creates the main menu 

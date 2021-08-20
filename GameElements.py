@@ -54,7 +54,8 @@ class Snake():
 	# the snake can't make an instant U turn
 	# if his length is greater than 1
 	def turn(self, direction):
-		if self.length == 1 or (direction[0]*-1, direction[1]*-1) != self.direction:
+		if ((self.length == 1 or (direction[0]*-1, direction[1]*-1) != self.direction)
+				and direction in [d.value for d in Directions]):
 			self.direction = direction
 
 	# Moves the snake
