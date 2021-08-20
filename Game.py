@@ -62,7 +62,7 @@ class Game():
 		self.surface = surface
 		self.grid = Grid()
 		self.snake = Snake(self.grid)
-		self.apple = Apple(self.grid)
+		self.apple = Apple(self.grid, self.snake)
 		self.hud = HUD(self.screen)
 		self.score = 0
 
@@ -70,7 +70,6 @@ class Game():
 	def game_loop(self, player):
 		while (player.lives):
 			clock.tick(FPS)
-			self.check_events()	
 			self.snake.turn(player.decision(self.grid, self.snake, self.apple))
 			self.grid.draw(self.surface)
 			if not self.snake.move():
@@ -80,6 +79,7 @@ class Game():
 			self.apple.draw(self.surface)
 			self.screen.blit(self.surface, (0,0))
 			self.hud.draw(self.score, player)
+			self.check_events()
 			pygame.display.update()
 	
 	# Handles game over
@@ -94,14 +94,15 @@ class Game():
 		if self.snake.head() == self.apple.position:
 				self.snake.length += 1
 				self.score += self.apple.bonus
-				self.apple.randomize_position()
+				self.apple.randomize_position(self.snake)
 
 	# Checks events
 	def check_events(self):
 		events = pygame.event.get()
-		for event in events:
-			if event.type == pygame.QUIT:
-				exit()
+		if events:
+			for event in events:
+				if event.type == pygame.QUIT:
+					exit()
 
 if __name__ == '__main__':
 	app = App()

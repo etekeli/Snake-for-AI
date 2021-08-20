@@ -92,11 +92,11 @@ class Snake():
 # Increases the score and makes
 # the snake grow
 class Apple():
-	def __init__(self, grid):
+	def __init__(self, grid, snake):
 		self.grid = grid
 		self.bonus = 10
 		self.position = (0,0)
-		self.randomize_position()
+		self.randomize_position(snake)
 		self.color = (235, 81, 96)
 		self.color2 = (250, 32, 54)
 
@@ -106,5 +106,5 @@ class Apple():
 		pygame.draw.rect(surface, self.color, r)
 		pygame.draw.rect(surface, self.color2, r, 9)
 
-	def randomize_position(self):
+	def randomize_position(self, snake):
 		self.position = (random.randint(0, self.grid.size-1), random.randint(0, self.grid.size-1))
