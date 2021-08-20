@@ -1,5 +1,5 @@
 # Snake-for-AI
-A Snake game I made for implementing aritficial intelligences  in Python.
+A Snake game I made for implementing artificial intelligences  in Python.
 
 To add a bot, create a bot file in the 'bots' folder (just like "RandomAI.py").
 It has to implement the class Player. 
