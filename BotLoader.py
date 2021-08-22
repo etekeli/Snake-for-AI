@@ -1,5 +1,6 @@
 from bots.RandomAI import *
 from bots.AStar import *
+from bots.ZStar import *
 
 # Bot loader
 # Loads all bots in the 'bots' folder
@@ -15,9 +16,13 @@ class BotLoader():
 		randomAI = RandomAI()
 		self.menu.add.button(randomAI.name, self.AI_play, randomAI)
 
-		#RandomAI
+		#AStar
 		astar = AStar()
 		self.menu.add.button(astar.name, self.AI_play, astar)
+
+		#ZStar
+		zstar = ZStar()
+		self.menu.add.button(zstar.name, self.AI_play, zstar)
 
 		# ADD BOTS HERE
 

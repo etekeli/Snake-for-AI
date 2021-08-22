@@ -1,11 +1,9 @@
 import pygame, pygame_menu
 from Player import *
-from bots.RandomAI import RandomAI
 from BotLoader import BotLoader
+from config import *
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
-MENU_SCALE = 0.6931
+MENU_SCALE = 1
 
 # Main Menu : displays the main menu
 # The button 'Play' launches a game controlled by the user
@@ -77,8 +75,15 @@ class AIMenu(pygame_menu.Menu):
 class HUD():
 	def __init__(self, screen):
 		self.screen = screen
-		self.font = pygame.font.SysFont("monospace", 16)
+		self.font = pygame.font.SysFont("calibri", 20)
 
 	def draw(self, score, player):
-		text = self.font.render("Player " + player.name + "   Score " + str(score) + "   Lives " + str(player.lives) + "   Best Score " + str(player.bestScore), 1, (0,0,0))
+		text = self.font.render("Player: " + player.name + "   Best Score: " + str(player.bestScore), 1, (0,0,0))
 		self.screen.blit(text, (5,10))
+		text = self.font.render("Score: " + str(score) + "   Lives: " + str(player.lives), 1, (0,0,0))
+		self.screen.blit(text, (5,50))
+		text = self.font.render("+ => x2 ", 1, (31,231,31))
+		self.screen.blit(text, (WINDOW_WIDTH - 90,10))
+		text = self.font.render("- => /2 ", 1, (231,31,31))
+		self.screen.blit(text, (WINDOW_WIDTH - 90,50))
+

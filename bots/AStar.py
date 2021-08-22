@@ -1,28 +1,8 @@
 from Player import *
 import math, sys
+from Utility import *
 
-# AStarNode : AStarNode class used for the A* algorithm
-class AStarNode():
-		def __init__(self, parent, position):
-				self.parent = parent
-				self.position = position
-
-				self.g = sys.maxsize
-				self.h = 0
-				self.f = 0
-
-		def path(self):
-			path = []
-			node = self
-			while node:
-					path.append(node.position)
-					node = node.parent
-			return path[::-1]
-
-		def __eq__(self, other):
-				return self.position == other.position
-
-# AStar : AI that moves uses the A* algorithm
+# AStar : AI that uses the A* algorithm
 class AStar(Player):
 	def __init__(self):
 		Player.__init__(self)
@@ -36,7 +16,9 @@ class AStar(Player):
 		
 		# Starting position
 		head = snake.head()
-		path = self.a_star(maze, snake.head(), apple.position)
+
+		# Find a path
+		path = self.a_star(maze, head, apple.position)
 
 		# To get the direction, we look at the difference between the beginning of the path and the snake's head
 		if path:
@@ -44,8 +26,12 @@ class AStar(Player):
 			direction = (first_step[0]-head[0], first_step[1]-head[1])
 			return direction
 		else:
-			return (-1,-1) # No path found, we return an illegal value
+			return snake.direction # No path found
 
+	# Main A* algorithm
+	# The maze is a list of list
+	# 0 represents a reachable area
+	# 1 represents an obstacle
 	def a_star(self, maze, start, end):
 		# Init lists and nodes
 		open = [] # Nodes not treated yet
@@ -95,38 +81,31 @@ class AStar(Player):
 				if current.g+1 < neighbour.g:
 					# Set costs
 					neighbour.g = current.g + 1
-					neighbour.h = self.heuristic(neighbour, end_node)
+					neighbour.h = manhattan_distance(neighbour.position, end_node.position)
 					neighbour.f = neighbour.g + neighbour.h
 					if not neighbour in open:
 						open.append(neighbour)
-	
-	# Heuristics
-	# http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+		
 
-	# Manhattan disctance
-	def heuristic(self, node, end_node):
-		dx = abs(node.position[0] - end_node.position[0])
-		dy = abs(node.position[1] - end_node.position[1])
-		return dx + dy
+# AStarNode : AStarNode class used for the A* algorithm
+class AStarNode():
+		def __init__(self, parent, position):
+				self.parent = parent
+				self.position = position
 
-	# Euclidian distance
-	def heuristic2(self, node, end_node):
-		dx = abs(node.position[0] - end_node.position[0])
-		dy = abs(node.position[1] - end_node.position[1])
-		return math.sqrt(dx * dx + dy * dy)
+				self.g = sys.maxsize
+				self.h = 0
+				self.f = 0
 
-	# Euclidian distance without square
-	# This doesn't give a shorter path, that's why 
-	# it's not recommended in the article.
-	# However, it's better not to take the shortest path
-	# when the snake gets bigger. That's why this one
-	# gives better performances than the second heuristic
-	def heuristic3(self, node, end_node):
-		dx = abs(node.position[0] - end_node.position[0])
-		dy = abs(node.position[1] - end_node.position[1])
-		return dx * dx + dy * dy
+		# Returns the path from all parents to this node
+		def path(self):
+			path = []
+			node = self
+			while node:
+					path.append(node.position)
+					node = node.parent
+			return path[::-1]
 
-			
-
-
+		def __eq__(self, other):
+				return self.position == other.position
 

@@ -1,10 +1,9 @@
-import pygame, sys
+import pygame
 from UI import *
 from Player import *
 from GameElements import *
 
 clock = pygame.time.Clock()
-FPS = 60
 
 # App : Main class
 # Creates the main menu 
@@ -97,11 +96,19 @@ class Game():
 
 	# Checks events
 	def check_events(self):
+		global FPS
 		events = pygame.event.get()
 		if events:
 			for event in events:
 				if event.type == pygame.QUIT:
 					exit()
+				elif event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_KP_PLUS and FPS < 1024:
+						FPS *= 2
+					elif event.key == pygame.K_KP_MINUS and FPS > 2:
+						FPS /= 2
+			
+
 
 if __name__ == '__main__':
 	app = App()

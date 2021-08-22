@@ -1,6 +1,6 @@
 import random, pygame
-from UI import WINDOW_HEIGHT, WINDOW_WIDTH
 from Directions import *
+from config import *
 
 
 # Grid : Grid on which the snake moves
@@ -49,6 +49,10 @@ class Snake():
 	# Returns the head of the snake
 	def head(self):
 		return self.body[0]
+
+	# Returns the tail of the snake
+	def tail(self):
+		return self.body[-1]
 
 	# Makes the snake turn
 	# the snake can't make an instant U turn

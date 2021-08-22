@@ -1,6 +1,6 @@
 import random, pygame
 from Directions import *
-
+from config import *
 
 # Player : the player of the game
 # Can be the user or an AI
@@ -32,7 +32,8 @@ class User(Player):
 	# Handles the keys that the 
 	# user presses
 	def handle_keys(self):
-		for event in pygame.event.get():
+		events = pygame.event.get()
+		for event in events:
 			if event.type == pygame.QUIT:
 				exit()
 			elif event.type == pygame.KEYDOWN:
@@ -44,3 +45,5 @@ class User(Player):
 					self.buffer = Directions.LEFT.value
 				elif event.key == pygame.K_RIGHT:
 					self.buffer = Directions.RIGHT.value
+					
+			pygame.event.post(event)
