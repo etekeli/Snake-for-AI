@@ -18,7 +18,7 @@ class ZStar(Player):
 		else:
 			# If there is no path or the snake has travelled through the whole path
 			# Then we recalculate the path
-			if self.path is None or len(self.path) < 2:
+			if self.path is None or len(self.path) <  random.randint(2, 9):
 				# The snake's body parts are the obstacles
 				maze = [[0 for col in range(grid.size)] for row in range(grid.size)]
 				for item in snake.body:
