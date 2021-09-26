@@ -1,6 +1,10 @@
 # Snake-for-AI
 A Snake game I made for implementing artificial intelligences  in Python.
 
+Demo:
+![Demo ZStar](demo.gif)
+
+
 To add a bot, create a bot file in the 'bots' folder (just like "RandomAI.py").
 It has to implement the class Player. 
 The game asks for a direction to take to the player (check the Directions class).
